@@ -1,11 +1,22 @@
 <?php
 
 class Client{
+      
       private $id;
       private $numClient;
       private $nomClient;
       private $adresseClient;
 
+      public function __construct($data=[]){
+            if($data){ // if($data!=[])
+                  foreach($data as $key=>$valeur){
+                        $set="set".ucfirst($key); // creation de fonction set (cas où $key='numArticle' alors $set="setNumArticle")
+                        if(method_exists($this,$set)){
+                              $this->$set($valeur);
+                        }
+                  }
+            }
+      }    
       /**
        * Get the value of id
        */ 

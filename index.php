@@ -9,7 +9,7 @@ extract($_GET); // generation de variable via les indices de la variable global 
 $nameController=ucfirst($path)."Controller";
 $fileController="Controller/$nameController.php";
 if(file_exists($fileController)){
-      $page=new $nameController();
+      $page=new $nameController(); // ici on vient donner le paramètre de la fonction charger ???? ////HELP
 }else{
       echo "Le fichier $nameController n'existe pas. ";
 }

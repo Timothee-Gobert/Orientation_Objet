@@ -41,6 +41,8 @@
       let articles=<?=$articles?>;
       console.log(articles);
 
+      afficher(articles);
+
       function afficher(articles){
             const nbre=articles.length;
             let html=articles.map(function(article){

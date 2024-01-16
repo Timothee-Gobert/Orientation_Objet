@@ -20,7 +20,7 @@ class MyFct{
             die;
         }
     }
-    public function cprintr($tableau){
+    public function printr($tableau){
         echo "<pre>";
         print_r($tableau);
         echo "</pre>";

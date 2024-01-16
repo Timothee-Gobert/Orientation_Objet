@@ -4,5 +4,11 @@
             <source src="Public/video/hero.mp4">
         </video>
     </div>
-    <h1><?=$_GET["name"]?></h1>
+    <?php if(isset($_GET['name'])){
+        $name=$_GET["name"];
+    }else{
+        $name='';
+    }
+    ?>
+    <h1><?=$name?></h1>
 </div>
