@@ -10,11 +10,23 @@ class ClientManager extends Manager{
       //       $resultat=$this->findByIdTable('client',$id);
       //       return $resultat;
       // }
-      public function findById($id,$type='array'){
+
+            //  Version 2
+      // public function findById($id,$type='array'){
+      //       $resultat=$this->findByIdTable('client',$id);
+      //       if($type!='array'){
+      //             $obj=new client($resultat);
+      //             return $obj;
+      //       }else{
+      //             return $resultat;
+      //       }
+      // }
+
+      public function findById($id,$type='obj'){
             $resultat=$this->findByIdTable('client',$id);
-            if($type!='array'){
-                  $obj=new client($resultat);
-                  return $obj;
+            if($type=="obj"){
+                  $objet=new Client($resultat);
+                  return $objet;
             }else{
                   return $resultat;
             }
@@ -22,7 +34,7 @@ class ClientManager extends Manager{
       public function find($id,$type='obj'){
             $resultat=$this->findByIdTable('client',$id);
             if($type=='obj'){
-                  $obj=new client($resultat);
+                  $obj=new Client($resultat);
                   return $obj;
             }else{
                   return $resultat;

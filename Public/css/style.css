@@ -12,6 +12,9 @@
     nav, footer{
         display:none !important;
     }
+    .print-none{
+        display:none !important;
+    }
 }
 @media screen and (max-width:450px){
     .line-group-input{
@@ -22,6 +25,7 @@
         width:100% !important;
     }
 }
+.div-btn{display: flex; justify-content: space-between;}
 #modal_page{
     width:100%;
     height:100%;

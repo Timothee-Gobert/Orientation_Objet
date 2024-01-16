@@ -39,10 +39,12 @@
                     class="fa fa-bars"></i></a>
             <div class="collapse navbar-collapse justify-content-between" id="nav">
                 <ul class="navbar-nav px-2">
-                    <li class="nav-item"><a href="index.php" class="nav-link text-light fw-bold">Accueil</a></li>
+                    <!-- <li class="nav-item"><a href="index.php" class="nav-link text-light fw-bold">Accueil</a></li> -->
+                    <!-- maintenant grace au fichier .htaccess -->
+                    <li class="nav-item"><a href="accueil" class="nav-link text-light fw-bold">Accueil</a></li>
                     <li class="nav-item"><a href="index.php?path=article" class="nav-link text-light fw-bold">Article</a></li>
                     <li class="nav-item"><a href="article-ajax.php" class="nav-link text-light fw-bold">Article-Ajax</a></li>                    
-                    <li class="nav-item"><a href="client.php" class="nav-link text-light fw-bold">Client</a></li>
+                    <li class="nav-item"><a href="index.php?path=client" class="nav-link text-light fw-bold">Client</a></li>
                     <li class="nav-item dropdown"><a href="" class="nav-link text-light fw-bold dropdown-toggle"
                             data-bs-toggle="dropdown" data-bs-auto-close="outside">Commande</a>
                         <ul class="dropdown-menu">
@@ -89,7 +91,7 @@
             </nav>
             <div class="row">
 
-                  <div id="aside-left" class="col-md-3 bg_green">
+                  <div id="aside-left" class="col-md-3 bg_green print-none">
                         <div class="center" id="logo">
                               <img src="./Public/img/Logo_Afpa.jpg" width="100%" alt="" class="my-4">
                         </div>
