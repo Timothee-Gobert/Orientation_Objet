@@ -1,6 +1,13 @@
 <?php
 
 class ClientManager extends Manager{
+
+      public function update($data,$id){
+            $this->updateTable('client',$data,$id);                      
+      }
+      public function insert($data){
+            $this->insertTable('client',$data);
+      }
       public function getDescribe(){
             $resultat=$this->getDescribeTable('client');
             return $resultat;

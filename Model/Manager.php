@@ -3,15 +3,62 @@
 require_once("./Config/parametre.php");
 
 class Manager{
-
-      function connexion($host=HOST,$dbname=DBNAME,$user=USER,$password=PASSWORD){
-            $dns="mysql:host=$host;dbname=$dbname;charset=utf8";
-            try{
-                $connexion=new PDO($dns,$user,$password);
-            }catch(Exception $e){
-                echo "<h1> Connexion impossible ! Verifiez les paramètres !</h1>";
-                die;
+    function updateTable($table,$data,$id){
+        $connexion=$this->connexion();
+        $setColumn="";
+        $values=[];
+        foreach($data as $key=>$value){
+            if($key!='id'){
+                $setColumn.=($setColumn=="")  ?  "$key=?"  :  ",$key=?"; // if ternaire
+                $values[]=$value;
             }
+        }
+        $sql="update $table set $setColumn where id=?";
+        $values[]=$id;
+        // --- test
+        // echo $sql;
+        // MyFct::sprintr($values);
+        // die;
+        // ---
+        $requete=$connexion->prepare($sql);
+        $requete->execute($values);
+    }
+    function insertTable($table,$data){
+        $connexion=$this->connexion();
+        $column="";
+        $pi=""; // point d'interrogation
+        $values=[];// tableau pour la method execute
+        // ----- geneeration de la requete
+        foreach($data as $key=>$value){
+            if($key!='id'){
+                if($column==''){
+                    $column.=$key;
+                    $pi.="?";
+                }else{
+                    $column.=",$key";
+                    $pi.=",?";
+                }
+                $values[]=$value;
+            }
+        }
+        $sql="insert into $table ($column) values ($pi)";
+        // --- test
+        // echo $sql;
+        // MyFct::sprintr($values);
+        // die;
+        // ---
+        $requete=$connexion->prepare($sql);
+        $requete->execute($values);
+    }
+
+    function connexion($host=HOST,$dbname=DBNAME,$user=USER,$password=PASSWORD){
+        $dns="mysql:host=$host;dbname=$dbname;charset=utf8";
+        try{
+            $connexion=new PDO($dns,$user,$password);
+        }catch(Exception $e){
+            echo "<h1> Connexion impossible ! Verifiez les paramètres !</h1>";
+            die;
+    }
             return $connexion;
         }
     

@@ -48,13 +48,19 @@ class ClientController extends MyFct{
             extract($data);
             $id=(int) $id; // tranformation de $id en entier du coup si vide -> 0
             if($id!=0){ // cas modification
-                  $sql="update client set numClient=?,nomClient=?,adresseClient=? where id=?";
-                  $requete=$connexion->prepare($sql);
-                  $requete->execute([$numClient,$nomClient,$adressClient,$id]);
+                  // --- V2
+                  $cm->update($data,$id);
+                  // --- V1
+                  // $sql="update client set numClient=?,nomClient=?,adresseClient=? where id=?";
+                  // $requete=$connexion->prepare($sql);
+                  // $requete->execute([$numClient,$nomClient,$adressClient,$id]);
             }else{ // cas d'une nouvelle entrer car id = 0
-                  $sql="insert into client (numClient,nomClient,adresseClient) values (?,?,?)";
-                  $requete=$connexion->prepare($sql);
-                  $requete->execute([$numClient,$nomClient,$adressClient]);
+                  // --- V2
+                  $cm->insert($data);
+                  // --- V1
+                  // $sql="insert into client (numClient,nomClient,adresseClient) values (?,?,?)";
+                  // $requete=$connexion->prepare($sql);
+                  // $requete->execute([$numClient,$nomClient,$adressClient]);
             }
             // reduction vers la page list client
             header("location:client");
