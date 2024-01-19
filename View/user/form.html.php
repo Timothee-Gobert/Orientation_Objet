@@ -27,14 +27,13 @@
             </div>
 
 
-            <div class="line-input">
-                  <ul id="roles" name="roles[]" multiple>
-                        
+            <div class="my-2">
+                  <label for="" class="lab30">Jeu de role</label>
+                  <ul class="ml30 p-0">
                         <?php foreach($roles as $role) : ?>
-                              <li><checkbox> value="<?=$role['libelle']?>" <?=$role['selected']?>>   <?=$role['libelle']?>   </checkbox> </li>
-
+                              <li><input type="checkbox" name="roles[]" value="<?=$role['libelle']?>" <?=$role['checked']?>>   <?=$role['libelle']?>  </li>
                         <?php endforeach; ?>
-                        </ul>
+                  </ul>
             </div>
 
 
