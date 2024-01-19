@@ -3,6 +3,25 @@
 require_once("./Config/parametre.php");
 
 class Manager{
+    public function searchTable($table,$columnLikes,$mot){
+        $connexion=$this->connexion();
+        $condition="";
+        $values=[];
+        foreach($columnLikes as $value){
+            $condition.=($condition=="")  ?  "$value like ? "  :  " or $value like ?";
+            $values[]="%$mot%";
+        }
+        $sql="select * from $table where $condition";
+        // --- test
+        // echo $sql;
+        // MyFct::sprintr($values);
+        // die;
+        // ---
+        $requete=$connexion->prepare($sql);
+        $requete->execute($values);
+        $resultat=$requete->fetchAll(PDO::FETCH_ASSOC);
+        return $resultat;
+    }
     function updateTable($table,$data,$id){
         $connexion=$this->connexion();
         $setColumn="";

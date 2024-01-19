@@ -37,6 +37,14 @@
       </table>
 </div>
 <script>
+      function touch(event){
+            if(event.keyCode==13){
+                  chercher();
+            }
+      }
+      function chercher(){
+            document.location.href="client&action=search&mot="+mot.value;
+      }
       function supprimer(id){
             const response=confirm("voulez-vous ben supprimez ce client ?");
             if(response){

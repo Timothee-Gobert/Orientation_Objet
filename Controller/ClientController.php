@@ -23,7 +23,21 @@ class ClientController extends MyFct{
                   case 'delete' :
                         $this->supprimerClient($id);
                         break;
+                  case 'search' :
+                        $this->rechercher($mot);
             }
+      }
+      function rechercher($mot){
+            $cm=new ClientManager();
+            $columnLikes=['numClient','nomClient','adresseClient'];
+            $clients=$cm->search($columnLikes,$mot);
+            $variables=[
+                  'lignes'=>$clients,
+                  'nbre'=>count($clients),
+            ];
+            $file="view/client/list.html.php";
+            $myFct=new MyFct();
+            $myFct->generatePage($file,$variables);
       }
       function supprimerClient($id){
             $cm=new ClientManager();

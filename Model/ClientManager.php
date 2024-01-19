@@ -1,7 +1,9 @@
 <?php
 
 class ClientManager extends Manager{
-
+      public function search($columnLikes,$mot){
+            return $this->searchTable('client',$columnLikes,$mot);
+      }
       public function update($data,$id){
             $this->updateTable('client',$data,$id);                      
       }
