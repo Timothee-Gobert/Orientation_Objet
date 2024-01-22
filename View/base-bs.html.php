@@ -32,43 +32,63 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-md bg-dark text-light fixed-top">
-            <a href="" class="btn"><i class="fa fa-laptop fa-2x text-light"></i></a>
-            <a href="#nav" class="btn bg-light navbar-toggler mx-2" data-bs-toggle="collapse"><i
-                    class="fa fa-bars"></i></a>
-            <div class="collapse navbar-collapse justify-content-between" id="nav">
-                <ul class="navbar-nav px-2">
-                    <!-- <li class="nav-item"><a href="index.php" class="nav-link text-light fw-bold">Accueil</a></li> -->
-                    <!-- maintenant grace au fichier .htaccess -->
-                    <li class="nav-item"><a href="accueil" class="nav-link text-light fw-bold">Accueil</a></li>
-                    <li class="nav-item"><a href="index.php?path=article" class="nav-link text-light fw-bold">Article</a></li>
-                    <li class="nav-item"><a href="article-ajax.php" class="nav-link text-light fw-bold">Article-Ajax</a></li>                    
-                    <li class="nav-item"><a href="index.php?path=client" class="nav-link text-light fw-bold">Client</a></li>
-                    <li class="nav-item dropdown"><a href="" class="nav-link text-light fw-bold dropdown-toggle"
-                            data-bs-toggle="dropdown" data-bs-auto-close="outside">Commande</a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item"><a href="" class="nav-link text-primary">Devis</a></li>
-                            <li class="nav-item"><a href="" class="nav-link text-primary">Facture</a></li>
-                            <li class="nav-item dropend"><a href="" class="nav-link text-primary dropdown-toggle"
-                                    data-bs-toggle="dropdown">Livraison</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a href="" class="nav-link">Domicile</a></li>
-                                    <li class="nav-item"><a href="" class="nav-link">Magasin</a></li>
-                                </ul>
-                            </li>
+      <div class="container-fluid">
+            <nav class="navbar navbar-expand-md <?=$_SESSION['bg_navbar']?> text-light fixed-top">
+                  <a href="" class="btn"><i class="fa fa-laptop fa-2x text-light"></i></a>
+                  <a href="#nav" class="btn bg-light navbar-toggler mx-2" data-bs-toggle="collapse"><i
+                              class="fa fa-bars"></i></a>
+                  <div class="collapse navbar-collapse justify-content-between" id="nav">
+                        <ul class="navbar-nav px-2">
+                              <!-- <li class="nav-item"><a href="index.php" class="nav-link text-light fw-bold">Accueil</a></li> -->
+                              <!-- maintenant grace au fichier .htaccess -->
+                              <li class="nav-item"><a href="accueil" class="nav-link text-light fw-bold">Accueil</a>
+                              </li>
+                              <li class="nav-item"><a href="index.php?path=article"
+                                          class="nav-link text-light fw-bold">Article</a></li>
+                              <li class="nav-item"><a href="article-ajax.php"
+                                          class="nav-link text-light fw-bold">Article-Ajax</a></li>
+                              <li class="nav-item"><a href="index.php?path=client"
+                                          class="nav-link text-light fw-bold">Client</a></li>
+                              <li class="nav-item dropdown"><a href=""
+                                          class="nav-link text-light fw-bold dropdown-toggle" data-bs-toggle="dropdown"
+                                          data-bs-auto-close="outside">Commande</a>
+                                    <ul class="dropdown-menu">
+                                          <li class="nav-item"><a href="" class="nav-link text-primary">Devis</a></li>
+                                          <li class="nav-item"><a href="" class="nav-link text-primary">Facture</a></li>
+                                          <li class="nav-item dropend"><a href=""
+                                                      class="nav-link text-primary dropdown-toggle"
+                                                      data-bs-toggle="dropdown">Livraison</a>
+                                                <ul class="dropdown-menu">
+                                                      <li class="nav-item"><a href="" class="nav-link">Domicile</a></li>
+                                                      <li class="nav-item"><a href="" class="nav-link">Magasin</a></li>
+                                                </ul>
+                                          </li>
+                                    </ul>
+                              </li>
+
+                              <!-- <li class="nav-item"><a href="user" class="nav-link text-light fw-bold">PUser</a></li> -->
+                              <!-- 
+                                    <li class="nav-item"><a href="" class="nav-link text-light fw-bold">Parametre</a></li> -->
+                              <li class="nav-item dropdown"><a href="" class="nav-link text-primary text-light fw-bold dropdown-toggle"
+                                          data-bs-toggle="dropdown">Livraison</a>
+                                    <ul class="dropdown-menu">
+                                          <li class="nav-item"><a href="" class="nav-link">User</a></li>
+                                          <li class="nav-item"><a href="" class="nav-link">Role</a></li>
+                                    </ul>
+                              </li>
+                              <li class="nav-item"><a href="user&action=login" class="nav-link text-light fw-bold">Se connecter</a></li>
+                              <li class="nav-item"><a href="user&action=logout" class="nav-link text-light fw-bold">Se déconnecter</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item"><a href="user" class="nav-link text-light fw-bold">PUser</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light fw-bold">Parametre</a></li>
-                </ul>
-                <div action="">
-                    <div class="input-group">
-                        <input onKeyDown="touche(event)"  id="mot" name="mot" type="text" class="form-control mx-2" placeholder="Mot à chercher">
-                        <a href="javascript:chercher()" class="btn bg-light"><i class="fa fa-search"></i></a>
-                        <a href="" class="mx-2 dropdown-toggle text-light" data-bs-toggle="dropdown"><i
-                                class="fa fa-bell text-light fa-2x"></i><sup class="text-light">(5)</sup></a>
-                        <ul class="dropdown-menu w100 bg_green">
+                        <div action="">
+                              <div class="input-group">
+                                    <input onKeyDown="touche(event)" id="mot" name="mot" type="text"
+                                          class="form-control mx-2" placeholder="Mot à chercher">
+                                    <a href="javascript:chercher()" class="btn bg-light"><i
+                                                class="fa fa-search"></i></a>
+                                    <a href="" class="mx-2 dropdown-toggle text-light" data-bs-toggle="dropdown"><i
+                                                class="fa fa-bell text-light fa-2x"></i><sup
+                                                class="text-light">(5)</sup></a>
+                                    <ul class="dropdown-menu w100 bg_green">
 
                                           <li class="nav-item p-2 w-100">Message - 01</li>
                                           <li class="nav-item p-2 w-100">Message - 02</li>

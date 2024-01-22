@@ -25,9 +25,49 @@
                 case 'search':
                     $this->chercherUser($mot);
                     break;
+                case 'login' :
+                    if($_POST){ // if($_POST!=[]) ou if(!empty($_POST)) //// $_POST valeur entrées dans les forms
+                        // $this->printr($_POST);die;
+                        $this->valider($_POST);
+                    }
+                    $this->seConnecter();
+                    break;
+                case 'logout' :
+                    $this->seDeconnecter();
+                    break;
             }
         }
         /*------------------Les Methods------------------------*/
+        function seDeconnecter(){
+            session_destroy();
+            header('location:accueil');
+            exit;
+        }
+        function valider($data){
+            $um=new UserManager();
+            extract($data);
+            $connexion=$um->connexion();
+            $sql="select * from user where username=? and password=?";
+            $requete=$connexion->prepare($sql);
+            $requete->execute([$username,sha1($password)]);
+            $user=$requete->fetch(PDO::FETCH_ASSOC);
+            if($user){
+                $_SESSION['username']=$user['username'];
+                $_SESSION['role']=$user['role'];
+                $_SESSION['bg_navbar']="bg_green";
+
+                header('location:accueil');
+                exit();
+            }else{
+                echo "<h1>Identifiant et ou mot de passe incorrect</h1>";
+                die;
+            }
+        }
+        function seConnecter(){
+            $file="View/user/formLogin.html.php";
+            $this->generatePage($file);
+
+        }
         function chercherUser($mot){
             $um=new UserManager();
             $columnLikes=['username'];
@@ -131,7 +171,6 @@
             //  Redurection vers la page list user
             header("location:user");
         }
-
         function listerUser(){
             /*-------------Préparation des variables à envoyer à la page--- */
             $um=new UserManager();
