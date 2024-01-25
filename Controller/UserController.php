@@ -46,21 +46,47 @@
         function valider($data){
             $um=new UserManager();
             extract($data);
-            $connexion=$um->connexion();
-            $sql="select * from user where username=? and password=?";
-            $requete=$connexion->prepare($sql);
-            $requete->execute([$username,sha1($password)]);
-            $user=$requete->fetch(PDO::FETCH_ASSOC);
+            ////// v1 
+            // $connexion=$um->connexion();
+            // $sql="select * from user where (username=? or email=?) and password=?";
+            // $requete=$connexion->prepare($sql);
+            // $requete->execute([$username,$username,$this->crypter($password)]);
+            // $user=$requete->fetch(PDO::FETCH_ASSOC);
+            /////// v2
+            $dataCondition=[
+                'username'=>$username,
+                'password'=>$this->crypter($password)
+            ];
+            $user=$um->findOneByCondition($dataCondition);
+            if(!$user->getUsername()){ // la recherche sur user name s'est averer fausse alors on tente la recherche sur email
+                $dataCondition=[
+                    'email'=>$username,
+                    'password'=>$this->crypter($password),
+                ];
+                $user=$um->findOneByCondition($dataCondition);
+            }
+            
             if($user){
-                $_SESSION['username']=$user['username'];
-                $_SESSION['role']=$user['role'];
+                $_SESSION['username']=$user->getUsername(); // $user['username'];
+                $_SESSION['roles']=$user->getRoles();       // $user['roles'];
                 $_SESSION['bg_navbar']="bg_green";
 
                 header('location:accueil');
                 exit();
             }else{
-                echo "<h1>Identifiant et ou mot de passe incorrect</h1>";
-                die;
+                // echo "<h1>Identifiant et ou mot de passe incorrect</h1>";
+                // die;
+                $message="<div class='center'>";
+                $message.="<p>Identifiant et ou mot de passe incorrect<p>";
+                $message.="<img src='Public/img/giphy.gif' class='img-fluid' width=50%>";
+                $message.="</div>";
+
+                $variables=[
+                    'message'=>$message,
+                ];
+
+                $file="View/erreur/erreur.html.php";
+                $this->generatePage($file,$variables);
             }
         }
         function seConnecter(){
@@ -152,7 +178,7 @@
             $um=new UserManager();
             $connexion=$um->connexion();
             $data['roles']=json_encode($data['roles']); // tranformer le condetune de $data['roles'] en json
-            $data['password']=sha1($data['password']); //  crypter le mode passe
+            $data['password']=$this->crypter($data['password']); //  crypter le mode passe
             
            // $this->printr($data);die;
             extract($data);

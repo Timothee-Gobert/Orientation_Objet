@@ -32,3 +32,7 @@ insert into role (rang,libelle) values
 ('002','ROLE_ASSIST'),
 ('003','ROLE_DEV'),
 ('004','ROLE_USER');
+
+insert into role (rang,libelle) values
+('003','ROLE_DEPOT'),
+('003','ROLE_CAISSE');

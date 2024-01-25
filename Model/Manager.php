@@ -3,6 +3,40 @@
 require_once("./Config/parametre.php");
 
 class Manager{
+        // generation d'une requete sql pour faire une recherche suivant le contenue de $dataCondition
+        function findOneByConditionTable($table,$dataCondition=[],$type='obj'){
+            $connexion=$this->connexion();
+            $condition='';
+            $values=[];
+            foreach($dataCondition as $key=>$value){// a chaque element du tableau $dataCondition on le recupere dans la variable $values ET $key correspond à l'indice de l'element
+                
+                //// syntaxe basique
+                // if(!$condition){ // si $condition est vide == if($condition=='')
+                //     $condition.=" $key=? ";
+                // }else{
+                //     $condition.=" and $key=? ";
+                // }
+
+                /// syntaxe ternaire
+                $condition.=(!$condition)?" $key=? " : " and $key=? "; // (condition) ? si vrai : si faux ;
+
+                $values[]=$value; // on pousse dans la variable tableau le contenu de la variable $value
+            }
+            $condition=(!$condition)?"true" : $condition;
+            $sql="select * from $table where $condition";
+            // echo $sql;
+            // printr($values);die;
+            $requete=$connexion->prepare($sql);
+            $requete->execute($values);
+            $resultat=$requete->fetch(PDO::FETCH_ASSOC);
+            if($type=='obj'){
+                $class=ucfirst($table);
+                $obj=new $class($resultat);
+                return $obj;
+            }else{
+                return $resultat;
+            }
+        }
     public function searchTable($table,$columnLikes,$mot){
         $connexion=$this->connexion();
         $condition="";

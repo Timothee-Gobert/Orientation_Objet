@@ -1,5 +1,9 @@
 <?php
 class UserManager extends Manager{
+    public function findOneByCondition($dataCondition = [], $type = 'obj'){
+        return $this->findOneByConditionTable('user',$dataCondition,$type);
+    }
+    
     public function search($columnLikes,$mot){
         return $this->searchTable('user',$columnLikes,$mot);
     }
