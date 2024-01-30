@@ -19,6 +19,10 @@ insert into user (username,password,email,roles) values
 insert into user (username,password,email,roles) values
 ('admin',sha3('1234'),'admin@localhost.com','["ROLE_ADMIN","ROLE_ASSIST","ROLE_DEV","ROLE_USER"]');
 
+--- Ajout de la colonne photo dans la table user
+
+alter table user add photo varchar(250);
+
 --- Création table rôle
 create table role (
       id int auto_increment primary key,

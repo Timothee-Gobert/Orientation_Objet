@@ -1,6 +1,9 @@
 <?php
 
 class ArticleManager extends Manager{
+      public function findAllByCondition($dataCondition = [],$order='',$type = 'obj'){
+            return $this->findAllByConditionTable('article',$dataCondition,$order,$type);
+        }
       public function findOneByCondition($dataCondition = [], $type = 'obj'){
             return $this->findOneByConditionTable('article',$dataCondition,$type);
         }

@@ -1,6 +1,9 @@
 <?php
 
 class ClientManager extends Manager{
+      public function findAllByCondition($dataCondition = [],$order='',$type = 'obj'){
+            return $this->findAllByConditionTable('client',$dataCondition,$order,$type);
+        }
       public function findOneByCondition($dataCondition = [], $type = 'obj'){
             return $this->findOneByConditionTable('client',$dataCondition,$type);
         }

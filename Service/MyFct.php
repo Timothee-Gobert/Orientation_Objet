@@ -4,6 +4,21 @@ require_once("./Config/parametre.php");
 
 class MyFct{
 
+    function notGranted($role_libelle){
+        $granted=self::isGranted($role_libelle); // comme isGranted() est static utilise self:: au lieu de $this
+        if($granted){
+            return false ;
+        }else{
+            return true;
+        }
+    }
+
+    function throwMessage($message){
+        $variables=['message'=>$message];
+        $file="View/erreur/erreur.html.php";
+        $this->generatePage($file,$variables);
+    }
+
     function crypter($password,$iteration=127){
         for($i=0;$i<=$iteration;$i++){
             $password=sha1($password);

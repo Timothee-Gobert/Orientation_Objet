@@ -5,27 +5,68 @@
             extract($_GET);
             switch($action){
                 case 'list':
+                    if($this->notGranted('ROLE_ADMIN')) $this->throwMessage("Vous n'avez pas le droit d'utiliser cette action!");
                     $this->listerUser();
                     break;
                 case 'insert':
                     $this->insererUser();
                     break;
                 case 'update':
+                    if($this->notGranted('ROLE_ADMIN')) $this->throwMessage("Vous n'avez pas le droit d'utiliser cette action!");
                     $this->modifierUser($id);
                     break;
                 case 'show':
+                    if($this->notGranted('ROLE_ADMIN')) $this->throwMessage("Vous n'avez pas le droit d'utiliser cette action!");
                     $this->afficherUser($id);
                     break;
                 case 'delete':
+                    if($this->notGranted('ROLE_ADMIN')) $this->throwMessage("Vous n'avez pas le droit d'utiliser cette action!");
                     $this->supprimerUser($id);
                     break;
                 case 'save' :
-                    $this->sauvegarderUser($_POST);
+                    // $this->printr($_POST);
+                    // $this->printr($_FILES);die;
+
+                    // Array
+                    // (
+                    //     [id] => 1
+                    //     [username] => tgobert
+                    //     [email] => timothee.gobert92@gmail.com
+                    //     [password] => 1234
+                    //     [roles] => Array
+                    //         (
+                    //             [0] => ROLE_ADMIN
+                    //             [1] => ROLE_ASSIST
+                    //             [2] => ROLE_DEV
+                    //             [3] => ROLE_USER
+                    //             [4] => ROLE_DEPOT
+                    //             [5] => ROLE_CAISSE
+                    //         )
+
+                    // )
+
+                    // Array
+                    // (
+                    //     [photo] => Array
+                    //         (
+                    //             [name] => logo.jpg
+                    //             [full_path] => logo.jpg
+                    //             [type] => image/jpeg
+                    //             [tmp_name] => C:\xampp\tmp\phpEF74.tmp
+                    //             [error] => 0
+                    //             [size] => 44982
+                    //         )
+
+                    // )
+
+                    $this->sauvegarderUser($_POST,$_FILES);
                     break;
                 case 'search':
                     $this->chercherUser($mot);
                     break;
                 case 'login' :
+                    
+
                     if($_POST){ // if($_POST!=[]) ou if(!empty($_POST)) //// $_POST valeur entrées dans les forms
                         // $this->printr($_POST);die;
                         $this->valider($_POST);
@@ -141,6 +182,10 @@
             $this->generateFormUser($user,$disabled);
         }  
         function generateFormUser($user,$disabled){
+            $photo=$user->getPhoto();
+            if(!$photo){
+                $photo="photo.jpg";  
+            }
             $user_roles=$user->getRoles();
             //MyFct::printr($user_roles);die;
             $rm=new RoleManager();
@@ -166,15 +211,25 @@
                 'email'=>$user->getEmail(),
                 'roles'=>$roles,
                 'disabled'=>$disabled,
+                'photo'=>$photo,
             ];
             //----Ouverture de la page
             $file="View/user/formUser.html.php";
             $this->generatePage($file,$variables);
 
         }                
-        function sauvegarderUser($data){
-           // $this->printr($data);die;
-           
+        function sauvegarderUser($data,$files=[]){
+            // $this->printr($data);die;
+            if($files['photo']['name']){    // verifier si $files['photo']['name'] existe
+                $file_photo=$files['photo']; // $_FILES['photo];
+                $name=$file_photo['name'];
+                $source=$file_photo['tmp_name'];
+                $destination="Public/upload/$name";
+                move_uploaded_file($source,$destination);// deplacer le fichier tmp vers la destination
+                $data['photo']=$name;
+            }else{
+                unset($data['name']); // supprime l'element à l'indice 'name dans 
+            }
             $um=new UserManager();
             $connexion=$um->connexion();
             $data['roles']=json_encode($data['roles']); // tranformer le condetune de $data['roles'] en json
@@ -198,6 +253,14 @@
             header("location:user");
         }
         function listerUser(){
+            // ------------- Protection -----------
+            ///// V1
+            // if($this->notGranted('role_ADMIN')){
+            //     $this->throwMessage("Vous n'avez pas le droit d'utiliser cette action!");
+            // }
+            ///// V2
+            // if sans accolaed car une seule instruction
+
             /*-------------Préparation des variables à envoyer à la page--- */
             $um=new UserManager();
             $users=$um->findAll();

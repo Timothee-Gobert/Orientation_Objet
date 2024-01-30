@@ -3,6 +3,34 @@
 require_once("./Config/parametre.php");
 
 class Manager{
+    function findAllByConditionTable($table,$dataCondition=[],$order='',$type='obj'){
+        $connexion=$this->connexion();
+        $condition='';
+        $values=[];
+        foreach($dataCondition as $key=>$value){// a chaque element du tableau $dataCondition on le recupere dans la variable $values ET $key correspond à l'indice de l'element
+            $condition.=(!$condition)?" $key=? " : " and $key=? "; // (condition) ? si vrai : si faux ;
+            $values[]=$value; // on pousse dans la variable tableau le contenu de la variable $value
+        }
+        $condition=(!$condition)?"true" : $condition;
+        $sql="select * from $table where $condition $order";
+        // echo $sql;
+        // printr($values);die;
+        $requete=$connexion->prepare($sql);
+        $requete->execute($values);
+        $resultats=$requete->fetchAll(PDO::FETCH_ASSOC);
+        if($type=='obj'){
+            $class=ucfirst($table);
+            // printr($resultats);die;
+            $objs=[];
+            foreach($resultats as $value){
+                $obj=new $class($value);
+                $objs[]=$obj;
+            }
+            return $objs;
+        }else{
+            return $resultats;
+        }
+    }
         // generation d'une requete sql pour faire une recherche suivant le contenue de $dataCondition
         function findOneByConditionTable($table,$dataCondition=[],$type='obj'){
             $connexion=$this->connexion();

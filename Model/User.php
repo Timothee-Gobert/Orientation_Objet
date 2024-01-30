@@ -9,6 +9,7 @@
             private $dateModification;
             private $dateDerniereConnexion;
             private $roles;
+            private $photo;
 
             public function __construct($data=[]){
                   if($data){ // if($data!=[])
@@ -177,6 +178,26 @@
             public function setRoles($roles)
             {
                         $this->roles = $roles;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of photo
+             */ 
+            public function getPhoto()
+            {
+                        return $this->photo;
+            }
+
+            /**
+             * Set the value of photo
+             *
+             * @return  self
+             */ 
+            public function setPhoto($photo)
+            {
+                        $this->photo = $photo;
 
                         return $this;
             }

@@ -289,3 +289,22 @@ background-color: lightblue;width:250px;}
 .niveau-v1 li:hover .niveau-v2{display:block;}
 .niveau-v2 li:hover a{display:block;background-color: yellow;
 color:navy;}
+
+/* CSS bases-bs */
+#aside-left,
+      #section-bs {
+            min-height: 70vh;
+            margin-top: 10vh;
+      }
+
+      #section-bs {
+            overflow: auto;
+            position: relative;
+      }
+
+      @media screen and (max-width:750px) {
+            #aside-left {
+                  width: 100%;
+            }
+
+      }

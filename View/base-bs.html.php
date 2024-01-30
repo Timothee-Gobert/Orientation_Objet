@@ -2,33 +2,20 @@
 <html lang="en">
 
 <head>
+
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
       <link rel="stylesheet" href="./Public/bootstrap-5.3.2-dist/css/bootstrap.css">
       <link rel="stylesheet" href="./Public/fontawesome-free-6.5.0-web/css/all.css">
-      <script src="./Public/bootstrap-5.3.2-dist/js/bootstrap.bundle.js" defer></script>
       <link rel="stylesheet" href="./Public/css/style.css">
+
+      <script src="./Public/bootstrap-5.3.2-dist/js/bootstrap.bundle.js" defer></script>
+      <script src="./Public/js/myScript.js" defer></script>
+
       <title>Document</title>
-      <style>
-      #aside-left,
-      #section-bs {
-            min-height: 70vh;
-            margin-top: 10vh;
-      }
 
-      #section-bs {
-            overflow: auto;
-            position: relative;
-      }
-
-      @media screen and (max-width:750px) {
-            #aside-left {
-                  width: 100%;
-            }
-
-      }
-      </style>
 </head>
 
 <body>
