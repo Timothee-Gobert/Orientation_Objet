@@ -24,49 +24,13 @@
                     $this->supprimerUser($id);
                     break;
                 case 'save' :
-                    // $this->printr($_POST);
-                    // $this->printr($_FILES);die;
-
-                    // Array
-                    // (
-                    //     [id] => 1
-                    //     [username] => tgobert
-                    //     [email] => timothee.gobert92@gmail.com
-                    //     [password] => 1234
-                    //     [roles] => Array
-                    //         (
-                    //             [0] => ROLE_ADMIN
-                    //             [1] => ROLE_ASSIST
-                    //             [2] => ROLE_DEV
-                    //             [3] => ROLE_USER
-                    //             [4] => ROLE_DEPOT
-                    //             [5] => ROLE_CAISSE
-                    //         )
-
-                    // )
-
-                    // Array
-                    // (
-                    //     [photo] => Array
-                    //         (
-                    //             [name] => logo.jpg
-                    //             [full_path] => logo.jpg
-                    //             [type] => image/jpeg
-                    //             [tmp_name] => C:\xampp\tmp\phpEF74.tmp
-                    //             [error] => 0
-                    //             [size] => 44982
-                    //         )
-
-                    // )
-
+                    $this->printr($_POST);$this->printr($_FILES);die;
                     $this->sauvegarderUser($_POST,$_FILES);
                     break;
                 case 'search':
                     $this->chercherUser($mot);
                     break;
                 case 'login' :
-                    
-
                     if($_POST){ // if($_POST!=[]) ou if(!empty($_POST)) //// $_POST valeur entrées dans les forms
                         // $this->printr($_POST);die;
                         $this->valider($_POST);
@@ -84,16 +48,10 @@
             header('location:accueil');
             exit;
         }
+
         function valider($data){
             $um=new UserManager();
             extract($data);
-            ////// v1 
-            // $connexion=$um->connexion();
-            // $sql="select * from user where (username=? or email=?) and password=?";
-            // $requete=$connexion->prepare($sql);
-            // $requete->execute([$username,$username,$this->crypter($password)]);
-            // $user=$requete->fetch(PDO::FETCH_ASSOC);
-            /////// v2
             $dataCondition=[
                 'username'=>$username,
                 'password'=>$this->crypter($password)
@@ -106,12 +64,11 @@
                 ];
                 $user=$um->findOneByCondition($dataCondition);
             }
-            
-            if($user){
+            //printr($user;die;)
+            if($user->getUsername()){
                 $_SESSION['username']=$user->getUsername(); // $user['username'];
                 $_SESSION['roles']=$user->getRoles();       // $user['roles'];
                 $_SESSION['bg_navbar']="bg_green";
-
                 header('location:accueil');
                 exit();
             }else{
@@ -130,6 +87,7 @@
                 $this->generatePage($file,$variables);
             }
         }
+
         function seConnecter(){
             $file="View/user/formLogin.html.php";
             $this->generatePage($file);
@@ -145,13 +103,15 @@
             ];
             $file="View/user/listUser.html.php";
             $this->generatePage($file,$variables);        
-        }        
+        }       
+
         function supprimerUser($id){
             $um=new UserManager();
             $um->deleteById($id);
             header("location:user");
             exit();
         }
+
         function insererUser(){
             //-----User---
             $user=new User();  // Créer un user à vide
@@ -162,7 +122,7 @@
             $this->generateFormUser($user,$disabled);
         }        
         function afficherUser($id){
-            $um=new UserManager();  //  Instancier la clasee UserManager
+            $um=new UserManager();  //  Instancier la classe UserManager
             $user=$um->findById($id);  // Recuperer user corespondant à l'id $id. D'après UserManager on a ici un objet
             $user_roles=$user->getRoles(); // Recupartion de roles (json) dans user
             $user_roles=json_decode($user_roles); //  transformation de $user_roles qui est encore JSON en tableau php
@@ -233,35 +193,26 @@
             $um=new UserManager();
             $connexion=$um->connexion();
             $data['roles']=json_encode($data['roles']); // tranformer le condetune de $data['roles'] en json
-            $data['password']=$this->crypter($data['password']); //  crypter le mode passe
+            $password=$data['password'];
+            if($password){ // tester si $password n'est ni vide ni null ni egal à 0
+                $password=$this->crypter($password);
+                $data['password']=$password;
+            }else{
+                unset($data['password']);
+            }
             
            // $this->printr($data);die;
             extract($data);
             $id=(int) $id;  // transformation de $id en entier
             if($id!=0){  // cas d'une modification
-                // $sql="update user set numUser=?,nomUser=?,adresseUser=? where id=?";
-                // $requete=$connexion->prepare($sql);
-                // $requete->execute([$numUser,$nomUser,$adresseUser,$id]);
                 $um->update($data,$id);
             }else{  //  cas d'une insertion 
-                // $sql="insert into user (numUser,nomUser,adresseUser) values (?,?,?) ";
-                // $requete=$connexion->prepare($sql);
-                // $requete->execute([$numUser,$nomUser,$adresseUser]);
                 $um->insert($data);
             }
             //  Redurection vers la page list user
             header("location:user");
         }
         function listerUser(){
-            // ------------- Protection -----------
-            ///// V1
-            // if($this->notGranted('role_ADMIN')){
-            //     $this->throwMessage("Vous n'avez pas le droit d'utiliser cette action!");
-            // }
-            ///// V2
-            // if sans accolaed car une seule instruction
-
-            /*-------------Préparation des variables à envoyer à la page--- */
             $um=new UserManager();
             $users=$um->findAll();
             $lignes=[];
@@ -280,12 +231,15 @@
                 }
                 $user_roles.="</select>";
 
+                $photo=$user->getPhoto();
+                $photo=(!$photo) ? 'photo.jpg' : $photo;
                 //----
                 $lignes[]=[
                     'id'=>$user->getId(),
                     'username'=>$user->getUsername(),
                     'dateCreation'=>$dateCreation,
                     'roles'=>$user_roles,
+                    'photo'=>$photo,
                 ];
             }
             $variables=[
@@ -295,10 +249,5 @@
             //------------Evoi page-------------*/
             $file="View/user/listUser.html.php";
             $this->generatePage($file,$variables);
-
         }
-
-
-
-
     }

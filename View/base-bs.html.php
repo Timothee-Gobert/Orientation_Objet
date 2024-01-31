@@ -33,8 +33,6 @@
                               <?php if(MyFct::isGranted('ROLE_DEPOT')): ?>
                               <li class="nav-item"><a href="index.php?path=article"
                                           class="nav-link text-light fw-bold">Article</a></li>
-                              <li class="nav-item"><a href="article-ajax.php"
-                                          class="nav-link text-light fw-bold">Article-Ajax</a></li>
                               <?php endif; ?>
                               <?php if(MyFct::isGranted('ROLE_CAISSE')): ?>
                               <li class="nav-item"><a href="index.php?path=client"
@@ -65,7 +63,7 @@
                                           data-bs-toggle="dropdown">Parametre</a>
                                     <ul class="dropdown-menu">
                                           <li class="nav-item"><a href="user" class="nav-link">User</a></li>
-                                          <li class="nav-item"><a href="" class="nav-link">Role</a></li>
+                                          <li class="nav-item"><a href="role" class="nav-link">Role</a></li>
                                     </ul>
                               </li>
                               <?php endif; ?>

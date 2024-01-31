@@ -180,8 +180,8 @@ class Manager{
         return true;
     }
     
-    function listTable($nomTable){
-        $sql="select * from $nomTable";
+    function listTable($nomTable,$order=''){
+        $sql="select * from $nomTable $order";
         $connexion=$this->connexion();
         $requete=$connexion->prepare($sql);
         $requete->execute();

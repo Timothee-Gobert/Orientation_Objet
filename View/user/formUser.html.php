@@ -3,16 +3,16 @@
       <form action="user&action=save" method='post' enctype="multipart/form-data">
 
             <div class="mb-3 my-2 hidden">
-                  <div class="col-auto">
+                  <div>
                         <label for="id" class="lab30 form-label">ID</label>
                         <input class="form-control w20" type="text" id='id' name="id" value="<?=$id?>" <?=$disabled?>>
                   </div>
             </div>
-            <div class="my-2 mb-3">
-                  <div class="col-auto">
+            <div class="my-2 mb-3 col">
+                  <div>
                         <label for="username" class="lab30 obligatoire form-label">USERNAME</label>
-                  </div>
-                  <div class="col-auto">
+                  </div class='col'>
+                  <div>
                         <input required class="form-control w20" type="text" id='username' name="username"
                               value="<?=$username?>" <?=$disabled?>>
                   </div>
@@ -23,6 +23,7 @@
                   <img src="Public/upload/<?=$photo?>" alt="" width="10%" class="img-fluid" id="image_view">
                   <input class="ml30" type="file" id='photo' name="photo" value=""
                         onchange="previewImage(event,'image_view')" <?=$disabled?>>
+                  <!--c'est le name qui donne la valeur de $_FILES['photo'] -->
             </div>
 
             <div class="my-2">
@@ -46,11 +47,11 @@
         </div> -->
             <?php if(MyFct::isGranted('ROLE_ADMIN')): ?>
             <div class="my-4">
-                  <div class="col-auto">
+                  <div class="col">
                         <label for="" class="lab30">ROLES</label>
                   </div>
-                  <div class="col-auto">
-                        <ul class="ml30 p-0">
+                  <div class="col">
+                        <ul class="ml30 p-0 row">
                               <?php foreach($roles as $role) : ?>
                               <li><input class="form-check-input" type="checkbox" name="roles[]"
                                           value="<?=$role['libelle']?>" <?=$role['checked']?>>
