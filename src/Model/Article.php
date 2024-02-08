@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Model;
+use App\Model\ArticleManager;
+
 class Article extends ArticleManager{
       private $id;
       private $numArticle;

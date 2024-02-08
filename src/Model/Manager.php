@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Model;
+use \PDO;
+use \Exception;
+
 require_once("./Config/parametre.php");
 
 class Manager{
@@ -19,7 +23,7 @@ class Manager{
         $requete->execute($values);
         $resultats=$requete->fetchAll(PDO::FETCH_ASSOC);
         if($type=='obj'){
-            $class=ucfirst($table);
+            $class="App\\Model\\".ucfirst($table);
             // printr($resultats);die;
             $objs=[];
             foreach($resultats as $value){
@@ -58,7 +62,7 @@ class Manager{
             $requete->execute($values);
             $resultat=$requete->fetch(PDO::FETCH_ASSOC);
             if($type=='obj'){
-                $class=ucfirst($table);
+                $class="App\\Model\\".ucfirst($table);
                 $obj=new $class($resultat);
                 return $obj;
             }else{

@@ -1,3 +1,5 @@
+<?php use App\Service\MyFct; ?>
+      
 <div class="m-auto w80 my-4">
       <h1 class="titre text-light">SAISIE USER</h1>
       <form action="user&action=save" method='post' enctype="multipart/form-data">
@@ -45,6 +47,7 @@
                 <?php endforeach; ?>
             </select>
         </div> -->
+
             <?php if(MyFct::isGranted('ROLE_ADMIN')): ?>
             <div class="my-4">
                   <div class="col">

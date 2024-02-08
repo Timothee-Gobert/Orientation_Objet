@@ -1,4 +1,8 @@
 <?php
+
+namespace App\Model;
+use App\Model\Manager;
+
 class UserManager extends Manager{
     public function findAllByCondition($dataCondition = [],$order='',$type = 'obj'){
         return $this->findAllByConditionTable('user',$dataCondition,$order,$type);

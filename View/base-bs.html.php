@@ -17,8 +17,8 @@
       <title>Document</title>
 
 </head>
-
 <body>
+<?php use App\Service\MyFct; ?>
       <div class="container-fluid">
             <nav class="navbar navbar-expand-md <?=$_SESSION['bg_navbar']?> text-light fixed-top">
                   <a href="" class="btn"><i class="fa fa-laptop fa-2x text-light"></i></a>
@@ -26,8 +26,6 @@
                               class="fa fa-bars"></i></a>
                   <div class="collapse navbar-collapse justify-content-between" id="nav">
                         <ul class="navbar-nav px-2">
-                              <!-- <li class="nav-item"><a href="index.php" class="nav-link text-light fw-bold">Accueil</a></li> -->
-                              <!-- maintenant grace au fichier .htaccess -->
                               <li class="nav-item"><a href="accueil" class="nav-link text-light fw-bold">Accueil</a>
                               </li>
                               <?php if(MyFct::isGranted('ROLE_DEPOT')): ?>

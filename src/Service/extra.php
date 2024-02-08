@@ -2,7 +2,7 @@
 
 function charger($class){
       // mtn $class="App\Dossier\nomClass"
-      $fileClass=str_replace("App", "src", $class)."php";
+      $fileClass=str_replace("App", "src", $class).".php";
       $fileClass=str_replace("\\", "/", $fileClass);
       if (file_exists($fileClass)){
             require_once($fileClass);

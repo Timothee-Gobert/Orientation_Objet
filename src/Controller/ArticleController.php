@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Controller;
+use App\Service\MyFct; 
+use App\Model\ArticleManager; 
+
 class ArticleController extends MyFct{
       public function __construct(){
 
@@ -10,18 +14,9 @@ class ArticleController extends MyFct{
                         $am=new ArticleManager();
                         $articles=$am->findAll();
                         $file="View/article/list.html.php";
-                        /*
-                        $variables=[
-                              'articles'=>json_encode($article),
-                        ];
-                        $this->generatePage($file,$variables)
-                        */
                         $this->generatePage($file,['articles'=>json_encode($articles)]);
                         break;
             }
-            // $file="View/accueil/accueil.html.php";
-            // $myFct=new MyFct();
-            // $myFct->generatePage($file);
       }
       // ----- Mes méthodes -----
       

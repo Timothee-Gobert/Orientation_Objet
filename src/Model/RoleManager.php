@@ -1,4 +1,8 @@
 <?php
+
+namespace App\Model;
+use App\Model\Manager;
+
 class RoleManager extends Manager{
     public function search($columnLikes,$mot){
         return $this->searchTable('role',$columnLikes,$mot);

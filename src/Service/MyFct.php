@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Service;
+
 require_once("./Config/parametre.php");
 
 class MyFct{

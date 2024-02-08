@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Model;
+use App\Model\RoleManager;
+
       class Role extends RoleManager{
             private $id;
             private $rang;

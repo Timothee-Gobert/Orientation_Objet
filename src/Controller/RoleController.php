@@ -1,4 +1,10 @@
 <?php
+
+namespace App\Controller;
+use App\Service\MyFct;
+use App\Model\RoleManager;
+use App\Model\Role;
+
     class RoleController extends MyFct{
         function __construct(){
             $action='list';

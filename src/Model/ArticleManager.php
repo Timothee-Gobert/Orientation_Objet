@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Model;
+use App\Model\Manager;
+
 class ArticleManager extends Manager{
       public function findAllByCondition($dataCondition = [],$order='',$type = 'obj'){
             return $this->findAllByConditionTable('article',$dataCondition,$order,$type);

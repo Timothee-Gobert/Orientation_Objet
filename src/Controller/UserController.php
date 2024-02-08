@@ -1,4 +1,12 @@
 <?php
+
+namespace App\Controller;
+use App\Service\MyFct;
+use App\Model\UserManager;
+use App\Model\User;
+use App\Model\RoleManager;
+use \DateTime;
+
     class UserController extends MyFct{
         function __construct(){
             $action='list';

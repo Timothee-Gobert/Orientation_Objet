@@ -1,6 +1,9 @@
 <?php
 
-class Client{
+namespace App\Model;
+use App\Model\ClientManager;
+
+class Client extends ClientManager{
       
       private $id;
       private $numClient;
