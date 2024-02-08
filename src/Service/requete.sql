@@ -17,7 +17,7 @@ insert into user (username,password,email,roles) values
 ('csimon',sha1('1234'),'claire.simon92@gmail.com','["ROLE_DEV","ROLE_USER"]');
 
 insert into user (username,password,email,roles) values
-('admin',sha3('1234'),'admin@localhost.com','["ROLE_ADMIN","ROLE_ASSIST","ROLE_DEV","ROLE_USER"]');
+('admin',sha1('1234'),'admin@localhost.com','["ROLE_ADMIN","ROLE_ASSIST","ROLE_DEV","ROLE_USER"]');
 
 --- Ajout de la colonne photo dans la table user
 

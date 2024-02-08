@@ -203,6 +203,7 @@
             
            // $this->printr($data);die;
             extract($data);
+            printr($data);
             $id=(int) $id;  // transformation de $id en entier
             if($id!=0){  // cas d'une modification
                 $um->update($data,$id);
