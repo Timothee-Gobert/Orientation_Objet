@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\MyFct;
 use App\Model\ClientManager;
+use App\Model\ArticleManager;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -11,9 +12,42 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ExcelController extends MyFct{
       function __construct(){
-            $this->writeExcel();
+            // $this->writeExcel();
+            $this->readExcel();
       }
       // ----- Mes méthodes -----
+      function readExcel(){
+            $spreadsheet=IOFactory::load("Public/maj-table/maj-article.xlsx");
+            $sheet=$spreadsheet->getActiveSheet();
+            $articles=$sheet->toArray();
+            //$this->printr($articles);die;
+            $am=new ArticleManager();
+            
+            foreach($articles  as $key=>$article){
+                if($key!=0){
+                    $numArticle=$article[1];
+                    $designation=$article[2];
+                    $prixUnitaire=$article[3];
+                    $data=[
+                        'numArticle'=>$numArticle,
+                        'designation'=>$designation,
+                        'prixUnitaire'=>$prixUnitaire,
+                    ];
+                    $art=$am->findOneByCondition(['numArticle'=>$numArticle],'array');
+                    if($numArticle){
+                        if($art){
+                            $id=$art['id'];
+                            $am->update($data,$id);
+                        }else{
+                            $am->insert($data);
+                        }
+                    }else{
+                        break;
+                    }
+                }
+            }
+            echo "Migration bien faite !"; die;
+      } 
       function writeExcel(){
             //Exportation de la table client . N   NOM   ADRESSE
             $spreadsheet=new Spreadsheet;

@@ -47,4 +47,10 @@ class ArticleManager extends Manager{
       public function statisticVente(){
 
       }
+      public function update($data,$id){
+            $this->updateTable('article',$data,$id);
+         }
+         public function insert($data){
+            $this->insertTable('article',$data);
+         } 
 }
